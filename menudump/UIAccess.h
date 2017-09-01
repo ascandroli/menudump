@@ -12,5 +12,6 @@
 - (NSArray *)getAppMenu:(NSRunningApplication *) pid;
 - (NSString *)convertMenuToJSON:(NSArray *)menu app:(NSRunningApplication *)menuApp;
 - (NSString *)convertMenuToYAML:(NSArray *)menu app:(NSRunningApplication *)menuApp;
+- (NSString *)convertMenuToAlfredScriptFilterFormat:(NSArray *)menu app:(NSRunningApplication *)menuApp;
 
 @end

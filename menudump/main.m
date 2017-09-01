@@ -24,7 +24,9 @@ int main(int argc, const char *argv[]) {
     @autoreleasepool {
         pid_t pid = -1;
         bool showHelp = false;
-        bool outputJson = true;
+
+        bool outputYaml = false;
+        bool outputAlfred = false;
 
         int debugLevel = 0;
         int offset = 1;
@@ -34,7 +36,10 @@ int main(int argc, const char *argv[]) {
                 showHelp = true;
                 offset++;
             } else if (strncasecmp(value, "--yaml", 6) == 0) {
-                outputJson = false;
+                outputYaml = true;
+                offset++;
+            } else if (strncasecmp(value, "--alfred", 6) == 0) {
+                outputAlfred = true;
                 offset++;
             } else if (strncasecmp(value, "--pid", 5) == 0) {
                 if (argc >= (offset + 1)) {
@@ -61,6 +66,7 @@ int main(int argc, const char *argv[]) {
             printf("  Dumps the menu contents of a given application in JSON format. Defaults to the front-most application.\n");
             printf("  --pid <pid> to target a specific application.\n");
             printf("  --yaml to output in YAML format instead.\n");
+            printf("  --alfred to output in Alfred's Script Filter JSON Format.\n");
             printf("  --debug to turn on debug output.\n");
             printf("  --help print this message\n");
             exit(1);
@@ -85,11 +91,15 @@ int main(int argc, const char *argv[]) {
                 exit(1);
             }
             NSString *contents;
-            if (outputJson) {
-                contents = [ui convertMenuToJSON:menu app:menuApp];
-            } else {
+
+            if (outputYaml) {
                 contents = [ui convertMenuToYAML:menu app:menuApp];
+            } else  if (outputAlfred) {
+                contents = [ui convertMenuToAlfredScriptFilterFormat:menu app:menuApp];
+            } else {
+                contents = [ui convertMenuToJSON:menu app:menuApp];
             }
+
             printf("%s", [contents UTF8String]);
         } else {
             printf("Unable to find the app that matches the pid");
