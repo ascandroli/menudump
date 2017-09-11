@@ -194,20 +194,7 @@ NSString *buildLocator(MenuItem *item, NSArray *parents) {
 }
 
 NSString *buildMenuPath(NSArray *parents) {
-    if (!parents || [parents count] == 0) {
-        return [NSMutableString stringWithString:@""];
-    } else {
-        NSMutableString *buffer = [NSMutableString stringWithString:@""];
-
-        for (NSString *parent in parents) {
-            if ([buffer length] > 0) {
-                [buffer appendString:@" > "];
-            }
-            [buffer appendString:parent];
-        }
-
-        return buffer;
-    }
+    return [parents componentsJoinedByString:@" > "];
 }
 
 NSArray *menuToJSON(NSArray *menu, int depth, NSArray *parents) {
@@ -257,7 +244,8 @@ NSArray *menuToAlfredScriptFilterFormat(NSArray *menu, int depth, NSArray *paren
                     @"title": [NSString stringWithFormat:@"%@%@", item.name ?: @"", item.shortcut ? [NSString stringWithFormat:@" \t (%@)", item.shortcut] : @""],
                     @"autocomplete": item.name ?: @"",
                     @"arg": buildLocator(item, parents),
-                    @"subtitle": buildMenuPath(parents),
+                    @"subtitle": [parents componentsJoinedByString:@" > "],
+                    @"match": [[parents arrayByAddingObject:(item.name ?: @"")] componentsJoinedByString:@" "],
                     @"icon": @{
                             @"type": @"fileicon",
                             @"path": bundlePath
