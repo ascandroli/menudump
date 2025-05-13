@@ -3,16 +3,42 @@
 <plist version="1.0">
 <dict>
 	<key>bundleid</key>
-	<string>xyz.scandroli.alfred.menudump</string>
+	<string>xyz.scandroli.alfred.menubarsearch</string>
 	<key>category</key>
 	<string>Productivity</string>
 	<key>connections</key>
 	<dict>
+		<key>2162C4C9-3637-4E4D-B9BF-D3945F2D8D5C</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>8E52D039-3F31-4FEF-8EC3-502F5F1425D4</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>29511A2B-FA2F-49CB-9038-9B661974AE97</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
 				<string>D75A822F-5FB7-4372-B080-617E8D0BA5C1</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>8E52D039-3F31-4FEF-8EC3-502F5F1425D4</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>0D8F185F-DEE3-4506-AB47-2BC84017B4D4</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -47,53 +73,6 @@
 	<string>Menu Bar Search</string>
 	<key>objects</key>
 	<array>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>alfredfiltersresults</key>
-				<true/>
-				<key>alfredfiltersresultsmatchmode</key>
-				<integer>0</integer>
-				<key>argumenttreatemptyqueryasnil</key>
-				<false/>
-				<key>argumenttrimmode</key>
-				<integer>0</integer>
-				<key>argumenttype</key>
-				<integer>1</integer>
-				<key>escaping</key>
-				<integer>4</integer>
-				<key>queuedelaycustom</key>
-				<integer>3</integer>
-				<key>queuedelayimmediatelyinitially</key>
-				<false/>
-				<key>queuedelaymode</key>
-				<integer>0</integer>
-				<key>queuemode</key>
-				<integer>2</integer>
-				<key>runningsubtext</key>
-				<string>Loading...</string>
-				<key>script</key>
-				<string>./build-cache-run-swift.sh menudump.swift $focusedapp</string>
-				<key>scriptargtype</key>
-				<integer>1</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>subtext</key>
-				<string>Search for a menu item by name.</string>
-				<key>title</key>
-				<string>Search menu bar</string>
-				<key>type</key>
-				<integer>0</integer>
-				<key>withspace</key>
-				<false/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
-			<key>uid</key>
-			<string>D75A822F-5FB7-4372-B080-617E8D0BA5C1</string>
-			<key>version</key>
-			<integer>3</integer>
-		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
@@ -159,17 +138,162 @@
 			<key>version</key>
 			<integer>2</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<true/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>4</integer>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>2</integer>
+				<key>runningsubtext</key>
+				<string>Loading...</string>
+				<key>script</key>
+				<string>./build-cache-run-swift.sh menudump.swift $focusedapp</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Search for a menu item by name.</string>
+				<key>title</key>
+				<string>Search menu bar</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>D75A822F-5FB7-4372-B080-617E8D0BA5C1</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>cheatsheet</string>
+				<key>subtext</key>
+				<string></string>
+				<key>text</key>
+				<string>CheatSheet</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>2162C4C9-3637-4E4D-B9BF-D3945F2D8D5C</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>4</integer>
+				<key>script</key>
+				<string>./build-cache-run-swift.sh menudump.swift $focusedapp --format yaml | ./build-cache-run-swift.sh cheatsheet.swift</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>8E52D039-3F31-4FEF-8EC3-502F5F1425D4</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>behaviour</key>
+				<integer>2</integer>
+				<key>fontmode</key>
+				<integer>0</integer>
+				<key>fontsizing</key>
+				<integer>0</integer>
+				<key>footertext</key>
+				<string></string>
+				<key>inputfile</key>
+				<string></string>
+				<key>inputtype</key>
+				<integer>0</integer>
+				<key>loadingtext</key>
+				<string></string>
+				<key>outputmode</key>
+				<integer>0</integer>
+				<key>scriptinput</key>
+				<integer>0</integer>
+				<key>spellchecking</key>
+				<integer>0</integer>
+				<key>stackview</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.userinterface.text</string>
+			<key>uid</key>
+			<string>0D8F185F-DEE3-4506-AB47-2BC84017B4D4</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string></string>
 	<key>uidata</key>
 	<dict>
+		<key>0D8F185F-DEE3-4506-AB47-2BC84017B4D4</key>
+		<dict>
+			<key>xpos</key>
+			<real>560</real>
+			<key>ypos</key>
+			<real>225</real>
+		</dict>
+		<key>2162C4C9-3637-4E4D-B9BF-D3945F2D8D5C</key>
+		<dict>
+			<key>xpos</key>
+			<real>205</real>
+			<key>ypos</key>
+			<real>225</real>
+		</dict>
 		<key>29511A2B-FA2F-49CB-9038-9B661974AE97</key>
 		<dict>
 			<key>xpos</key>
 			<real>35</real>
 			<key>ypos</key>
 			<real>65</real>
+		</dict>
+		<key>8E52D039-3F31-4FEF-8EC3-502F5F1425D4</key>
+		<dict>
+			<key>xpos</key>
+			<real>380</real>
+			<key>ypos</key>
+			<real>225</real>
 		</dict>
 		<key>C8DFF277-2C74-48D3-B685-F304268DF007</key>
 		<dict>
@@ -191,7 +315,7 @@
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>3.0</string>
+	<string>2.1.2</string>
 	<key>webaddress</key>
 	<string></string>
 </dict>

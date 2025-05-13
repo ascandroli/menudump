@@ -3,3 +3,7 @@
 /*.iml
 /target
 /projectFilesBackup
+/menudump
+/menudump.swift.archcache
+/cheatsheet.swift.archcache
+/cheatsheet
