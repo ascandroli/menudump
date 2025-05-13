@@ -159,6 +159,7 @@ func extractMenuItems(from element: AXUIElement, path: [String] = [], pathIndice
         let menuPath = path + [title.trimmingCharacters(in: .whitespacesAndNewlines)]
         
         if menuPath.first == "Apple" { continue }  // Filter out Apple menu
+        if menuPath.contains("Services") { continue }  // Filter out Services menu
 
         let indices = pathIndices.isEmpty ? "\(i)" : "\(pathIndices),\(i)"
         
@@ -201,12 +202,79 @@ func extractMenuItems(from element: AXUIElement, path: [String] = [], pathIndice
 
 // MARK: - Main Logic
 
+// MARK: - Export Functions
+
+func exportToJSON(items: [MenuItem], app: NSRunningApplication) -> String {
+    let result: [String: Any] = [
+        "application": [
+            "name": app.localizedName ?? "Unknown",
+            "bundleIdentifier": app.bundleIdentifier ?? "Unknown",
+            "bundlePath": app.bundleURL?.path ?? "",
+            "executablePath": app.executableURL?.path ?? ""
+        ],
+        "menus": items.map { item in
+            [
+                "path": item.path,
+                "shortcut": item.shortcut,
+                "applescriptPath": item.applescriptPath,
+                "pathIndices": item.pathIndices
+            ]
+        }
+    ]
+    
+    if let jsonData = try? JSONSerialization.data(withJSONObject: result, options: .prettyPrinted),
+       let jsonString = String(data: jsonData, encoding: .utf8) {
+        return jsonString
+    }
+    return "{}"
+}
+
+func exportToYAML(items: [MenuItem], app: NSRunningApplication) -> String {
+    var yaml = """
+application:
+    name: "\(app.localizedName ?? "Unknown")"
+    bundleIdentifier: "\(app.bundleIdentifier ?? "Unknown")"
+    bundlePath: "\(app.bundleURL?.path ?? "")"
+    executablePath: "\(app.executableURL?.path ?? "")"
+menus:
+"""
+    
+    for item in items {
+        yaml += "\n  - path: [\(item.path.map { "\"\($0)\"" }.joined(separator: ", "))]"
+        yaml += "\n    shortcut: \"\(item.shortcut)\""
+        yaml += "\n    applescriptPath: \"\(item.applescriptPath)\""
+        yaml += "\n    pathIndices: \"\(item.pathIndices)\""
+    }
+    
+    return yaml
+}
+
 func run() {
     let app: NSRunningApplication
     
     let args = CommandLine.arguments
-    if args.count > 1 {
-        let bundleId = args[1]
+    var outputFormat: String?
+    var bundleId: String?
+    
+    // Parse arguments
+    var i = 1
+    while i < args.count {
+        let arg = args[i]
+        switch arg {
+        case "--format":
+            if i + 1 < args.count {
+                outputFormat = args[i + 1]
+                i += 1
+            }
+        default:
+            if !arg.hasPrefix("--") {
+                bundleId = arg
+            }
+        }
+        i += 1
+    }
+    
+    if let bundleId = bundleId {
         guard let targetApp = NSWorkspace.shared.runningApplications.first(where: { $0.bundleIdentifier == bundleId }) else {
             print(#"{"items": [{"title": "App Not Found", "subtitle": "Could not find running app with bundle ID: \#(bundleId)"}]}"#)
             return
@@ -241,6 +309,22 @@ func run() {
     
     let items = extractMenuItems(from: menuBar as! AXUIElement)
     
+    // Handle different output formats
+    if let format = outputFormat {
+        switch format.lowercased() {
+        case "json":
+            print(exportToJSON(items: items, app: app))
+            return
+        case "yaml":
+            print(exportToYAML(items: items, app: app))
+            return
+        default:
+            print("Unknown format. Use --format json or --format yaml")
+            return
+        }
+    }
+    
+    // Default: Alfred format
     let alfredItems = items.map { item in
         // Create a consistent hash for Alfred's learning by using a custom hash function
         let pathString = item.path.joined(separator: ">")
