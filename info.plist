@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>xyz.scandroli.alfred.menudump</string>
+	<key>category</key>
+	<string>Productivity</string>
+	<key>connections</key>
+	<dict>
+		<key>29511A2B-FA2F-49CB-9038-9B661974AE97</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>D75A822F-5FB7-4372-B080-617E8D0BA5C1</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>C8DFF277-2C74-48D3-B685-F304268DF007</key>
+		<array/>
+		<key>D75A822F-5FB7-4372-B080-617E8D0BA5C1</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>C8DFF277-2C74-48D3-B685-F304268DF007</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Alejandro Scandroli</string>
+	<key>description</key>
+	<string>Search for a menu item by name on the focused application.</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Menu Bar Search</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<true/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>4</integer>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>2</integer>
+				<key>runningsubtext</key>
+				<string>Loading...</string>
+				<key>script</key>
+				<string>./build-cache-run-swift.sh menudump.swift $focusedapp</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Search for a menu item by name.</string>
+				<key>title</key>
+				<string>Search menu bar</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>D75A822F-5FB7-4372-B080-617E8D0BA5C1</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>action</key>
+				<integer>0</integer>
+				<key>argument</key>
+				<integer>0</integer>
+				<key>focusedappvariable</key>
+				<true/>
+				<key>focusedappvariablename</key>
+				<string></string>
+				<key>hotkey</key>
+				<integer>49</integer>
+				<key>hotmod</key>
+				<integer>1179648</integer>
+				<key>hotstring</key>
+				<string>Space</string>
+				<key>leftcursor</key>
+				<false/>
+				<key>modsmode</key>
+				<integer>0</integer>
+				<key>relatedAppsMode</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.hotkey</string>
+			<key>uid</key>
+			<string>29511A2B-FA2F-49CB-9038-9B661974AE97</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>4</integer>
+				<key>script</key>
+				<string>on run argv	set scpt to run script (" 
+	tell application \"System Events\"
+		set _app to item 1 of (every process whose frontmost is true)
+	end tell
+
+	tell application \"System Events\" 
+		tell _app
+			tell " &amp; item 1 of argv &amp; "
+				if (it exists) then perform action \"AXPress\"
+			end tell 
+		end tell 
+	end tell")end run</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>6</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>C8DFF277-2C74-48D3-B685-F304268DF007</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>29511A2B-FA2F-49CB-9038-9B661974AE97</key>
+		<dict>
+			<key>xpos</key>
+			<real>35</real>
+			<key>ypos</key>
+			<real>65</real>
+		</dict>
+		<key>C8DFF277-2C74-48D3-B685-F304268DF007</key>
+		<dict>
+			<key>xpos</key>
+			<real>490</real>
+			<key>ypos</key>
+			<real>65</real>
+		</dict>
+		<key>D75A822F-5FB7-4372-B080-617E8D0BA5C1</key>
+		<dict>
+			<key>xpos</key>
+			<real>255</real>
+			<key>ypos</key>
+			<real>65</real>
+		</dict>
+	</dict>
+	<key>userconfigurationconfig</key>
+	<array/>
+	<key>variablesdontexport</key>
+	<array/>
+	<key>version</key>
+	<string>3.0</string>
+	<key>webaddress</key>
+	<string></string>
+</dict>
+</plist>
