@@ -27,7 +27,7 @@ CURRENT_HASH=$(md5 -q -s "$(md5 -q "$SWIFT_FILE")_$ARCH")
 STORED_HASH=$(cat "$HASH_FILE" 2>/dev/null)
 
 if [ "$CURRENT_HASH" != "$STORED_HASH" ] || [ ! -f "$EXECUTABLE" ]; then
-    swiftc "$SWIFT_FILE" -o "$EXECUTABLE" || exit 1
+    swiftc -parse-as-library "$SWIFT_FILE" -o "$EXECUTABLE" || exit 1
     echo "$CURRENT_HASH" > "$HASH_FILE"
 fi
 

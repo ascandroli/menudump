@@ -1,4 +1,8 @@
-#!/usr/bin/env swift
+/**
+ * WARN: this won't run using as a script anymore, `#!/usr/bin/env swift` has been commented out.
+ * This script needs to be compiled with `-parse-as-library`
+ */
+// #!/usr/bin/env swift
 
 import Foundation
 import Cocoa
@@ -132,13 +136,11 @@ func buildAppleScriptPath(from path: [String]) -> String {
     
     var components = ["menu item \"\(path.last!)\""]
     
-    // For nested menus, we need both "menu" and "menu item" references
     for i in stride(from: path.count - 2, through: 1, by: -1) {
         components.append("of menu \"\(path[i])\"")
         components.append("of menu item \"\(path[i])\"")
     }
 
-    // Add the top-level menu bar reference
     components.append("of menu \"\(path[0])\"")
     components.append("of menu bar item \"\(path[0])\"")
     components.append("of menu bar 1")
@@ -166,7 +168,6 @@ func extractMenuItems(from element: AXUIElement, path: [String] = [], pathIndice
         let childElements = getAttribute(element: child, name: kAXChildrenAttribute) as? [AXUIElement] ?? []
         
         if childElements.count == 1 {
-            // Submenu
             items.append(contentsOf: extractMenuItems(from: childElements[0], path: menuPath, pathIndices: indices, depth: depth + 1))
         } else {
 
@@ -256,7 +257,6 @@ func run() {
     var outputFormat: String?
     var bundleId: String?
     
-    // Parse arguments
     var i = 1
     while i < args.count {
         let arg = args[i]
@@ -309,7 +309,6 @@ func run() {
     
     let items = extractMenuItems(from: menuBar as! AXUIElement)
     
-    // Handle different output formats
     if let format = outputFormat {
         switch format.lowercased() {
         case "json":
@@ -324,9 +323,7 @@ func run() {
         }
     }
     
-    // Default: Alfred format
     let alfredItems = items.map { item in
-        // Create a consistent hash for Alfred's learning by using a custom hash function
         let pathString = item.path.joined(separator: ">")
         let uid = String(abs(pathString.djb2Hash))
         let title = item.shortcut.isEmpty ? item.title : "\(item.title) \t (\(item.shortcut))"
@@ -362,4 +359,13 @@ func run() {
     }
 }
 
-run()
+/**
+ * WARN: this won't run using as a script anymore, `#!/usr/bin/env swift` has been commented out.
+ * This script needs to be compiled with `-parse-as-library`
+ */
+@main
+struct MenuDumpApp {
+   static func main() async {
+       run()
+   }
+}
